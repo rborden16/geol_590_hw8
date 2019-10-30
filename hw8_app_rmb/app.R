@@ -1,28 +1,30 @@
 #
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
+# Shiny app for GEOL 590 HW8
+# Rose Borden
+# October 29, 2019
 #
 
 library(shiny)
+library(tidyverse)
 
-# Define UI for application that draws a histogram
+# min and max for mpg
+min.mpg <- min(mtcars$mpg)
+max.mpg <- max(mtcars$mpg)
+
+# Defining the UI for the app
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    titlePanel("mtcars dynamic graph"),
 
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
         sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
+            sliderInput("mpgrange",
+                        "Range of mpg",
+                        min = min.mpg,
+                        max = max.mpg,
+                        value = c(min.mpg, max.mpg)),
         ),
 
         # Show a plot of the generated distribution
