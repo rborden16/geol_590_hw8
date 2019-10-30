@@ -70,9 +70,7 @@ server <- function(input, output) {
     input$mpgrange
   )
   
-  # Create a dynamic plot plot
-  # I moved the ggplot into its own reactive context.
-  # Note that creating a ggplot object is very fast - it is actually drawing the plot that is slow.
+  # Create a dynamic plot
   output$mtcars_plot <- renderPlot(
     p_mtcars()
   )  
