@@ -38,26 +38,33 @@ ui <- fluidPage(
                         label = "Y axis",
                         choices = axis_vars,
                         selected = "y"),
+            
+            # add a button to apply changes
+            actionButton("go", 
+                         "Go!")
         ),
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("distPlot")
+           plotOutput("mtcars_plot")
         )
     )
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+  filter_mpg <- reactive({
+    mtcars %>%
+      filter(mpg >= min(input$mpgrange)) %>%
+      filter(mpg <= max(input$mpgrange))
     })
+  
+  # making a plot
+  p_mtcars <- eventReactive(input$go, {
+    ggplot(filter_mpg(), aes_string(x = input$xvar, y = input$yvar)) +
+      geom_point()
+    })
+  
 }
 
 # Run the application 
