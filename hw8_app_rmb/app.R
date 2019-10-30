@@ -11,6 +11,9 @@ library(tidyverse)
 min.mpg <- min(mtcars$mpg)
 max.mpg <- max(mtcars$mpg)
 
+# define x and y variables
+axis_vars <- names(mtcars)
+
 # Defining the UI for the app
 ui <- fluidPage(
 
@@ -25,6 +28,16 @@ ui <- fluidPage(
                         min = min.mpg,
                         max = max.mpg,
                         value = c(min.mpg, max.mpg)),
+            # add menus to select x and y
+            selectInput(inputId = "xvar",
+                        label = "X axis",
+                        choices = axis_vars,
+                        selected = "x"),
+            
+            selectInput(inputId = "yvar",
+                        label = "Y axis",
+                        choices = axis_vars,
+                        selected = "y"),
         ),
 
         # Show a plot of the generated distribution
