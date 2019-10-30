@@ -65,6 +65,17 @@ server <- function(input, output) {
       geom_point()
     })
   
+  # Create diagnostic output window to show what kind of output the double slider creates
+  output$diagnostic <- renderText(
+    input$mpgrange
+  )
+  
+  # Create a dynamic plot plot
+  # I moved the ggplot into its own reactive context.
+  # Note that creating a ggplot object is very fast - it is actually drawing the plot that is slow.
+  output$mtcars_plot <- renderPlot(
+    p_mtcars()
+  )  
 }
 
 # Run the application 
