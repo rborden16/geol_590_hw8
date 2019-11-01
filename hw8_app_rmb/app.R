@@ -61,8 +61,8 @@ server <- function(input, output) {
   
   # making a plot
   p_mtcars <- eventReactive(input$go, {
-    ggplot(filter_mpg(), aes_string(x = input$xvar, y = input$yvar)) +
-      geom_point()
+    ggplot(filter_mpg(), aes_string(x = input$xvar, y = input$yvar, colour = "hp")) +
+      geom_point() + theme_classic() + color_scheme_gradient()
     })
   
   # Create diagnostic output window to show what kind of output the double slider creates
